@@ -1,0 +1,9 @@
+<div class="player-list">
+  <h3>Jogadores</h3>
+  <p *ngFor="let player of playerList">
+    {{player.name}} - {{player.rating}}
+  </p>
+  <span *ngIf="playerList.length === 0">
+    Não há jogadores para mostrar.
+  </span>
+</div>

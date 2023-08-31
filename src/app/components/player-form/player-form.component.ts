@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '../../service/api.service'
 
 interface Player {
   name: string;
@@ -12,22 +11,15 @@ interface Player {
   templateUrl: './player-form.component.html',
   styleUrls: ['./player-form.component.css']
 })
-export class PlayerFormComponent implements OnInit {
+
+export class PlayerFormComponent {
   playerForm: FormGroup;
   players: Player[] = [];
 
-  constructor(private formBuilder: FormBuilder, private apiService: ApiService) {
+  constructor(private formBuilder: FormBuilder) {
     this.playerForm = this.formBuilder.group({
       name: ['', Validators.required],
-      rating: [0, [Validators.required, Validators.min(0)]]
-    });
-  }
-  
-
-  ngOnInit(): void {
-    this.playerForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      rating: [0, [Validators.required, Validators.min(1), Validators.max(5)]]
+      rating: ['', [Validators.required, Validators.min(1), Validators.max(5)]]
     });
   }
 
@@ -36,10 +28,6 @@ export class PlayerFormComponent implements OnInit {
       const player: Player = this.playerForm.value;
       this.players.push(player);
       this.playerForm.reset();
-    }
-    else
-    {
-      console.log("error") //seria interessante apresentar alguma notificação p o usuario sobre oq ele ta errando
     }
   }
 
